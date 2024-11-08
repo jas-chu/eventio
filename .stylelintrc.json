@@ -1,0 +1,14 @@
+{
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier",
+      "stylelint-order"
+    ],
+    "plugins": ["stylelint-scss"],
+    "rules": {
+      "color-hex-length": "short",
+      "no-empty-source": null,
+      "prettier/prettier": true
+    }
+  }
+  
