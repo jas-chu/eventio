@@ -3,7 +3,8 @@ import * as SecureStore from 'expo-secure-store'
 
 interface AuthContextType {
   isAuthenticated: boolean
-  login: () => void
+  userId: string
+  login: (userId: string) => void
   logout: () => void
 }
 
@@ -11,11 +12,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const [userId, setUserId] = useState<string>('')
 
-  // TODO: this is optional to use secureStore, evaluate if it's neccessary or not for the project now.
   React.useEffect(() => {
     const checkAuthStatus = async () => {
       const token = await SecureStore.getItemAsync('authToken')
+      const persistedUserId = await SecureStore.getItemAsync('userId')
+      if (persistedUserId) {
+        setUserId(persistedUserId)
+      }
       if (token) {
         setIsAuthenticated(true)
       }
@@ -24,18 +29,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuthStatus()
   }, [])
 
-  const login = async () => {
-    await SecureStore.setItemAsync('authToken', 'your-jwt-token')
+  const login = async (userId: string) => {
+    setUserId(userId)
     setIsAuthenticated(true)
   }
 
   const logout = async () => {
-    await SecureStore.deleteItemAsync('authToken')
     setIsAuthenticated(false)
+    await SecureStore.deleteItemAsync('authToken')
+    await SecureStore.deleteItemAsync('refreshToken')
+    await SecureStore.deleteItemAsync('userId')
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

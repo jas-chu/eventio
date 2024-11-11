@@ -3,5 +3,5 @@ export enum Routes {
   Login = 'Login',
   Profile = 'Profile',
   Details = 'Details',
-  SignUp = 'SignUp'
+  SignUp = 'SignUp',
 }
