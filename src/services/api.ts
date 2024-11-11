@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import * as SecureStore from 'expo-secure-store'
 import Constants from 'expo-constants'
 import { CreateEventData } from '../types'
+import { storeToken } from '../store/authStorage'
 
 const API_KEY = Constants.expoConfig?.extra?.apiKey
 const API_URL = Constants.expoConfig?.extra?.apiUrl
@@ -15,11 +16,9 @@ const api = axios.create({
   },
 })
 
-// Request Interceptor to add Authorization header if available
 api.interceptors.request.use(
   async (config) => {
     const token = await SecureStore.getItemAsync('authToken')
-    const refreshToken = await SecureStore.getItemAsync('refreshToken')
 
     if (token) {
       config.headers.Authorization = `${token}`
@@ -27,6 +26,59 @@ api.interceptors.request.use(
     return config
   },
   (error) => Promise.reject(error)
+)
+
+const refreshAuthToken = async (): Promise<string> => {
+  try {
+    const refreshToken = await SecureStore.getItemAsync('refreshToken')
+    if (!refreshToken) throw new Error('No refresh token available')
+
+    const response = await api.post('/auth/refresh-token', { refreshToken })
+
+    if (response.headers['authorization']) {
+      const accessToken = response.headers['authorization']
+      await storeToken(accessToken)
+      return accessToken
+    } else {
+      throw new Error('Failed to refresh token')
+    }
+  } catch (error) {
+    console.error('Error refreshing token:', error)
+    throw error
+  }
+}
+
+// Extend AxiosRequestConfig to include the `_retry` property
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    _retry?: boolean // Add the custom _retry property
+  }
+}
+
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config // Get the original request that failed
+    if (!originalRequest) return
+
+    // Check if the error is due to expired token
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true // To prevent infinite loops
+
+      try {
+        // Attempt to refresh the auth token
+        const newToken = await refreshAuthToken()
+
+        // Retry the original request with the new token
+        originalRequest.headers.Authorization = `${newToken}`
+        return api(originalRequest)
+      } catch (refreshError) {
+        console.error('Error refreshing token:', refreshError)
+        throw new Error('Authentication failed. Please log in again.')
+      }
+    }
+    return Promise.reject(error)
+  }
 )
 
 export const login = async (email: string, password: string) => {
