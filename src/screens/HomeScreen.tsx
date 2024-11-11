@@ -13,6 +13,7 @@ import { format } from 'date-fns'
 import { Event } from '../types'
 import { useEventsContext } from '../context/EventsContext'
 import { useView } from '../context/ViewContext'
+import { COLORS } from '../utils/colors'
 
 type FilterType = 'ALL' | 'FUTURE' | 'PAST'
 
@@ -161,12 +162,12 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   actionButtonText: {
-    color: '#FFFFFF',
+    color: COLORS.WHITE,
     fontSize: 12,
     fontWeight: '500',
   },
   attendees: {
-    color: '#8A8A8A',
+    color: COLORS.TEXT_SECONDARY,
     fontSize: 12,
   },
   attendeesContainer: {
@@ -174,28 +175,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   container: {
-    backgroundColor: '#F9F9FB',
+    backgroundColor: COLORS.WHITE,
     flex: 1,
   },
   description: {
-    color: '#666666',
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 14,
     marginBottom: 16,
   },
   editButton: {
-    backgroundColor: '#F1F3F5',
+    backgroundColor: COLORS.DISABLED,
   },
   editButtonText: {
-    color: '#000000',
+    color: COLORS.PRIMARY_BLACK,
   },
   eventCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.WHITE,
     borderRadius: 12,
     elevation: 3,
     marginBottom: 16,
     marginHorizontal: 16,
     padding: 16,
-    shadowColor: '#000',
+    shadowColor: COLORS.PRIMARY_BLACK,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   eventDate: {
-    color: '#8A8A8A',
+    color: COLORS.TEXT_TERTIARY,
     fontSize: 12,
     marginBottom: 4,
   },
@@ -214,28 +215,28 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   eventTitle: {
-    color: '#000000',
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
   },
   filterButton: {
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.WHITE,
     borderRadius: 8,
     justifyContent: 'center',
     paddingVertical: 6,
   },
   filterButtonActive: {
-    backgroundColor: '#2C3333',
+    backgroundColor: COLORS.BLACK,
   },
   filterButtonText: {
-    color: '#8A8A8A',
+    color: COLORS.TEXT_TERTIARY,
     fontSize: 14,
     fontWeight: '500',
   },
   filterButtonTextActive: {
-    color: '#FFFFFF',
+    color: COLORS.WHITE,
   },
   filterContainer: {
     flexDirection: 'row',
@@ -244,34 +245,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
   },
-  headerTitle: {
-    color: '#000000',
-    fontSize: 28,
-    fontWeight: '600',
-    marginBottom: 8,
-    marginLeft: 16,
-    marginTop: 16,
-  },
   joinButton: {
-    backgroundColor: '#40C057',
+    backgroundColor: COLORS.GREEN,
   },
   leaveButton: {
-    backgroundColor: '#FA5252',
+    backgroundColor: COLORS.RED,
   },
   ownerName: {
-    color: '#4A4A4A',
+    color: COLORS.TEXT_SECONDARY,
     fontSize: 14,
     marginBottom: 8,
   },
   participantIcon: {
-    backgroundColor: '#D9D9D9',
+    backgroundColor: COLORS.DISABLED,
     borderRadius: 8,
     height: 16,
     marginRight: 4,
     width: 16,
   },
   safeArea: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.WHITE,
     flex: 1,
   },
   scrollView: {

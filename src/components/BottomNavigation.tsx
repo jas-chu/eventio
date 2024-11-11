@@ -7,15 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Routes } from '../navigation/Routes'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../navigation/navigationTypes'
-
-// Define constants for colors and sizes
-const COLORS = {
-  background: '#FFFFFF',
-  border: '#3A4444',
-  icon: '#FFFFFF',
-  activeIcon: '#323C46',
-  inactiveIcon: '#72727B',
-}
+import { COLORS } from '../utils/colors'
 
 const SIZES = {
   icon: 24,
@@ -52,7 +44,7 @@ const NavButton: React.FC<{
     <Ionicons
       name={icon}
       size={SIZES.icon}
-      color={active ? COLORS.activeIcon : COLORS.inactiveIcon}
+      color={active ? COLORS.BLACK : COLORS.TEXT_SECONDARY}
     />
   </TouchableOpacity>
 )
@@ -112,7 +104,7 @@ export default function BottomNav({
         activeOpacity={0.9}
       >
         <View style={styles.addButtonInner}>
-          <Ionicons name="add" size={SIZES.addIcon} color={COLORS.icon} />
+          <Ionicons name="add" size={SIZES.addIcon} color={COLORS.WHITE} />
         </View>
       </TouchableOpacity>
 
@@ -131,7 +123,7 @@ const styles = StyleSheet.create({
   },
   addButtonInner: {
     alignItems: 'center',
-    backgroundColor: COLORS.activeIcon,
+    backgroundColor: COLORS.BLACK,
     borderRadius: SIZES.addButton / 2,
     height: SIZES.addButton,
     justifyContent: 'center',
@@ -139,8 +131,8 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: COLORS.background,
-    borderTopColor: COLORS.border,
+    backgroundColor: COLORS.WHITE,
+    borderTopColor: COLORS.BORDER_TOP,
     borderTopWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
     justifyContent: 'space-around',

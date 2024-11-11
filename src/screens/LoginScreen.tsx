@@ -15,28 +15,8 @@ import { useNavigation } from '@react-navigation/native'
 import { Routes } from '../navigation/Routes'
 import { RootStackParamList } from '../navigation/navigationTypes'
 import { StackNavigationProp } from '@react-navigation/stack'
-
-const STRINGS = {
-  TITLE: 'E.',
-  HEADING: 'Sign in to Eventio.',
-  SUBTITLE: 'Enter your details below.',
-  EMAIL_PLACEHOLDER: 'Email',
-  PASSWORD_PLACEHOLDER: 'Password',
-  SIGN_IN: 'SIGN IN',
-  NO_ACCOUNT: "Don't have an account? ",
-  SIGN_UP: 'Sign up',
-  EMAIL_ERROR: 'Please enter a valid email address',
-  AUTH_ERROR: 'Oops! That email and password combination is not valid',
-} as const
-
-const COLORS = {
-  PRIMARY: '#40C057',
-  ERROR: '#FF4D4F',
-  TEXT: '#1D1D1B',
-  SUBTITLE: '#949EA0',
-  BORDER: '#DEDEDE',
-  INPUT: '#323C46',
-} as const
+import { STRINGS } from '../utils/strings'
+import { COLORS } from '../utils/colors'
 
 interface LoginState {
   email: string
@@ -108,7 +88,7 @@ export const LoginScreen: React.FC = () => {
               keyboardType="email-address"
               autoCapitalize="none"
               style={[styles.input, showEmailError && styles.inputError]}
-              placeholderTextColor={COLORS.SUBTITLE}
+              placeholderTextColor={COLORS.TEXT_TERTIARY}
             />
             {showEmailError && (
               <Text style={styles.errorText}>{STRINGS.EMAIL_ERROR}</Text>
@@ -128,7 +108,7 @@ export const LoginScreen: React.FC = () => {
                 onChangeText={(text) => handleChange('password', text)}
                 secureTextEntry={!showPassword}
                 style={styles.passwordInput}
-                placeholderTextColor={COLORS.SUBTITLE}
+                placeholderTextColor={COLORS.TEXT_TERTIARY}
               />
               <TouchableOpacity
                 onPress={() => setShowPassword(!showPassword)}
@@ -137,7 +117,7 @@ export const LoginScreen: React.FC = () => {
                 <Ionicons
                   name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                   size={24}
-                  color={COLORS.SUBTITLE}
+                  color={COLORS.TEXT_TERTIARY}
                 />
               </TouchableOpacity>
             </View>
@@ -189,7 +169,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   container: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.WHITE,
     flex: 1,
   },
   content: {
@@ -199,7 +179,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? 100 : 80,
   },
   errorText: {
-    color: COLORS.ERROR,
+    color: COLORS.RED,
     fontSize: 12,
     marginTop: 4,
   },
@@ -210,7 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   footerText: {
-    color: COLORS.SUBTITLE,
+    color: COLORS.TEXT_TERTIARY,
     fontSize: 14,
   },
   formContainer: {
@@ -222,7 +202,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   heading: {
-    color: COLORS.TEXT,
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 28,
     fontWeight: '600',
     marginBottom: 8,
@@ -230,7 +210,7 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: COLORS.BORDER,
     borderBottomWidth: 1,
-    color: COLORS.INPUT,
+    color: COLORS.BLACK,
     fontSize: 16,
     height: 48,
     paddingVertical: 8,
@@ -239,10 +219,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   inputError: {
-    borderBottomColor: COLORS.ERROR,
+    borderBottomColor: COLORS.RED,
   },
   logo: {
-    color: COLORS.TEXT,
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 32,
     fontWeight: '700',
     marginBottom: 40,
@@ -254,7 +234,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   passwordInput: {
-    color: COLORS.INPUT,
+    color: COLORS.BLACK,
     flex: 1,
     fontSize: 16,
     height: 48,
@@ -262,7 +242,7 @@ const styles = StyleSheet.create({
   },
   signInButton: {
     alignItems: 'center',
-    backgroundColor: COLORS.PRIMARY,
+    backgroundColor: COLORS.GREEN,
     borderRadius: 4,
     height: 48,
     justifyContent: 'center',
@@ -273,16 +253,16 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   signInButtonText: {
-    color: '#FFFFFF',
+    color: COLORS.WHITE,
     fontSize: 14,
     fontWeight: '600',
     letterSpacing: 1,
   },
   signUpText: {
-    color: COLORS.PRIMARY,
+    color: COLORS.GREEN,
   },
   subtitle: {
-    color: COLORS.SUBTITLE,
+    color: COLORS.TEXT_TERTIARY,
     fontSize: 16,
   },
 })

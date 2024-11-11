@@ -20,6 +20,8 @@ import DateTimePicker, {
 import { format } from 'date-fns'
 import { useCreateEventModal } from '../context/CreateEventModalContext'
 import { useEventsContext } from '../context/EventsContext'
+import { COLORS } from '../utils/colors'
+import { STRINGS } from '../utils/strings'
 
 export default function CreateEventModal() {
   const { isVisible, onCloseModal } = useCreateEventModal()
@@ -95,28 +97,30 @@ export default function CreateEventModal() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.innerContainer}>
             <View style={styles.header}>
-              <Text style={styles.title}>Create new event</Text>
+              <Text style={styles.title}>{STRINGS.CREATE_NEW_EVENT}</Text>
               <TouchableOpacity
                 onPress={onCloseModal}
                 style={styles.closeButton}
               >
-                <Text style={styles.closeButtonText}>✕</Text>
+                <Text style={styles.closeButtonText}>
+                  {STRINGS.CLOSE_BUTTON}
+                </Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.form}>
               <TextInput
                 style={styles.input}
-                placeholder="Title"
-                placeholderTextColor="#A1A1A1"
+                placeholder={STRINGS.TITLE_PLACEHOLDER}
+                placeholderTextColor={COLORS.TEXT_TERTIARY}
                 value={title}
                 onChangeText={setTitle}
               />
 
               <TextInput
                 style={styles.input}
-                placeholder="Description"
-                placeholderTextColor="#A1A1A1"
+                placeholder={STRINGS.DESCRIPTION_PLACEHOLDER}
+                placeholderTextColor={COLORS.TEXT_TERTIARY}
                 value={description}
                 onChangeText={setDescription}
                 multiline
@@ -126,8 +130,8 @@ export default function CreateEventModal() {
                 <TextInput
                   pointerEvents="none"
                   style={styles.input}
-                  placeholder="Date"
-                  placeholderTextColor="#A1A1A1"
+                  placeholder={STRINGS.DATE_PLACEHOLDER}
+                  placeholderTextColor={COLORS.TEXT_TERTIARY}
                   value={format(date, 'MMM d, yyyy')}
                   editable={false}
                 />
@@ -137,8 +141,8 @@ export default function CreateEventModal() {
                 <TextInput
                   pointerEvents="none"
                   style={styles.input}
-                  placeholder="Time"
-                  placeholderTextColor="#A1A1A1"
+                  placeholder={STRINGS.TIME_PLACEHOLDER}
+                  placeholderTextColor={COLORS.TEXT_TERTIARY}
                   value={format(time, 'h:mm a')}
                   editable={false}
                 />
@@ -146,14 +150,14 @@ export default function CreateEventModal() {
 
               <TextInput
                 style={styles.input}
-                placeholder="Capacity"
-                placeholderTextColor="#A1A1A1"
+                placeholder={STRINGS.CAPACITY_PLACEHOLDER}
+                placeholderTextColor={COLORS.TEXT_TERTIARY}
                 value={capacity}
                 onChangeText={setCapacity}
                 keyboardType="number-pad"
               />
 
-              {error && <Text style={styles.errorText}>{error.message}</Text>}
+              {error && <Text>{error.message || STRINGS.ERROR.DEFAULT}</Text>}
 
               <TouchableOpacity
                 style={styles.createButton}
@@ -161,9 +165,11 @@ export default function CreateEventModal() {
                 disabled={isLoading}
               >
                 {isLoading ? (
-                  <ActivityIndicator color="#FFFFFF" />
+                  <ActivityIndicator color={COLORS.WHITE} />
                 ) : (
-                  <Text style={styles.createButtonText}>CREATE</Text>
+                  <Text style={styles.createButtonText}>
+                    {STRINGS.CREATE_BUTTON_TEXT}
+                  </Text>
                 )}
               </TouchableOpacity>
             </View>
@@ -178,7 +184,10 @@ export default function CreateEventModal() {
               />
             )}
             {showDatePicker && Platform.OS === 'ios' && (
-              <Button title="Done" onPress={() => setShowDatePicker(false)} />
+              <Button
+                title={STRINGS.DONE_BUTTON_TEXT}
+                onPress={() => setShowDatePicker(false)}
+              />
             )}
             {showTimePicker && (
               <DateTimePicker
@@ -189,7 +198,10 @@ export default function CreateEventModal() {
               />
             )}
             {showTimePicker && Platform.OS === 'ios' && (
-              <Button title="Done" onPress={() => setShowTimePicker(false)} />
+              <Button
+                title={STRINGS.DONE_BUTTON_TEXT}
+                onPress={() => setShowTimePicker(false)}
+              />
             )}
           </View>
         </TouchableWithoutFeedback>
@@ -205,24 +217,24 @@ const styles = StyleSheet.create({
     right: 0,
   },
   closeButtonText: {
-    color: '#000',
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 24,
   },
   container: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     minHeight: '50%',
   },
   createButton: {
     alignItems: 'center',
-    backgroundColor: '#40C057',
+    backgroundColor: COLORS.GREEN,
     borderRadius: 12,
     marginTop: 8,
     padding: 16,
   },
   createButtonText: {
-    color: 'white',
+    color: COLORS.WHITE,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -240,9 +252,9 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   input: {
-    borderBottomColor: '#E5E5E5',
+    borderBottomColor: COLORS.TEXT_TERTIARY,
     borderBottomWidth: 1,
-    color: '#000000',
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 16,
     paddingVertical: 12,
   },
@@ -251,7 +263,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   title: {
-    color: '#000000',
+    color: COLORS.PRIMARY_BLACK,
     fontSize: 18,
     fontWeight: '600',
   },
