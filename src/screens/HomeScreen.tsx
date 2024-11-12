@@ -14,6 +14,7 @@ import { Event } from '../types'
 import { useEventsContext } from '../context/EventsContext'
 import { useView } from '../context/ViewContext'
 import { COLORS } from '../utils/colors'
+import { Ionicons } from '@expo/vector-icons'
 
 type FilterType = 'ALL' | 'FUTURE' | 'PAST'
 
@@ -86,7 +87,13 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
       <View style={styles.eventFooter}>
         {isDefaultView && (
           <View style={styles.attendeesContainer}>
-            <View style={styles.participantIcon} />
+            <View style={styles.participantIcon}>
+              <Ionicons
+                name={'person'}
+                size={24}
+                color={COLORS.TEXT_SECONDARY}
+              />
+            </View>
             <Text style={styles.attendees}>
               {event.attendees.length} of {event.capacity}
             </Text>
@@ -168,19 +175,19 @@ const styles = StyleSheet.create({
   },
   attendees: {
     color: COLORS.TEXT_SECONDARY,
-    fontSize: 12,
+    fontSize: 14,
   },
   attendeesContainer: {
     alignItems: 'center',
     flexDirection: 'row',
   },
   container: {
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: COLORS.PRIMARY_BACKGROUND,
     flex: 1,
   },
   description: {
     color: COLORS.PRIMARY_BLACK,
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 16,
   },
   editButton: {
@@ -216,7 +223,7 @@ const styles = StyleSheet.create({
   },
   eventTitle: {
     color: COLORS.PRIMARY_BLACK,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     marginBottom: 4,
   },
@@ -257,14 +264,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   participantIcon: {
-    backgroundColor: COLORS.DISABLED,
-    borderRadius: 8,
-    height: 16,
     marginRight: 4,
-    width: 16,
   },
   safeArea: {
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: COLORS.PRIMARY_BACKGROUND,
     flex: 1,
   },
   scrollView: {
