@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
+    marginTop: 12,
   },
   footerText: {
     color: COLORS.TEXT_TERTIARY,
