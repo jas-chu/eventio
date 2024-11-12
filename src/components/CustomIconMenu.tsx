@@ -29,7 +29,6 @@ const CustomIconMenu: React.FC<CustomIconMenuProps> = ({ icons = [] }) => {
   )
 }
 
-// TODO: check
 const styles = StyleSheet.create({
   headerContainer: {
     alignItems: 'center',
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: Platform.OS === 'ios' ? 20 : 10,
-    // backgroundColor: '#6200ea',
   },
   iconButton: {
     marginLeft: 16,

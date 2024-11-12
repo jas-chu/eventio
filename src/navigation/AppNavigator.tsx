@@ -44,11 +44,11 @@ const AppNavigator = () => {
                       <CustomIconMenu
                         icons={[
                           {
-                            icon: 'grid',
+                            icon: 'grid-outline',
                             onPress: showDefaultView,
                           },
                           {
-                            icon: 'grid',
+                            icon: 'menu-outline',
                             onPress: showCompactView,
                           },
                         ]}
