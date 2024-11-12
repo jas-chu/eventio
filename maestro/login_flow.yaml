@@ -1,0 +1,14 @@
+appId: com.eventio
+---
+- launchApp
+- assertVisible: 'Sign in to Eventio.'
+- tapOn:
+    text: 'Email'
+- inputText: 'test@example.com'
+- tapOn:
+    text: 'Password'
+- inputText: 'password123'
+- tapOn:
+    text: 'SIGN IN'
+- assertVisible: 'Events'
+- assertNotVisible: 'Sign in to Eventio.' # Login screen should no longer be visible

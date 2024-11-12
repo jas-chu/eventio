@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: Platform.OS === 'ios' ? 20 : 10,
+    paddingVertical: 10,
   },
   iconButton: {
     marginLeft: 16,

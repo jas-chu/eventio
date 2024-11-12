@@ -95,6 +95,8 @@ There are still a few items remaining to be completed, that unfortunately, I was
 - Create separated components for `FilterButtons` and `EventCard`.
 - Implement the `Error Page` design and handle retries.
 - Implement the `Sign Up`, `Profile` and `Event Details` features.
+- Fix Maestro test and create new tests
+- I also noticed a little bug about how a new event or the event that changes attendees is not ordered correctly by date.
 
 ### Aditional Notes
 

@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "test:maestro": "maestro test maestro/login_flow.yaml"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.3",
