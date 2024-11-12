@@ -68,14 +68,9 @@ const AppNavigator = () => {
                 <Stack.Screen
                   name={Routes.Details}
                   component={DetailsScreen}
-                  options={({ navigation }) => ({
-                    headerTitle: 'Events',
+                  options={() => ({
+                    headerTitle: 'Details',
                     headerTitleAlign: 'center',
-                    headerLeft: () => (
-                      <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Ionicons name="arrow-back" size={24} />
-                      </TouchableOpacity>
-                    ),
                   })}
                 />
               </>

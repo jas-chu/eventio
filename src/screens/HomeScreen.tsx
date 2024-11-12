@@ -15,6 +15,10 @@ import { useEventsContext } from '../context/EventsContext'
 import { useView } from '../context/ViewContext'
 import { COLORS } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { Routes } from '../navigation/Routes'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from '../navigation/navigationTypes'
 
 type FilterType = 'ALL' | 'FUTURE' | 'PAST'
 
@@ -51,6 +55,7 @@ const FilterButtons: React.FC<{
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   const { joinEventById, leaveEventById } = useEventsContext()
   const { isDefaultView } = useView()
+  const navigation: StackNavigationProp<RootStackParamList> = useNavigation()
 
   const handleActionButton = () => {
     if (event.status == 'JOIN') {
@@ -58,6 +63,9 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
     }
     if (event.status === 'LEAVE') {
       leaveEventById(event.id)
+    }
+    if (event.status === 'EDIT') {
+      navigation.navigate(Routes.Details)
     }
   }
 
@@ -73,17 +81,19 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   }
 
   return (
-    <View style={styles.eventCard}>
-      <Text style={styles.eventDate}>
-        {format(new Date(event.startsAt), 'MMMM d, yyyy – h:mm a')}
-      </Text>
-      <Text style={styles.eventTitle}>{event.title}</Text>
-      <Text
-        style={styles.ownerName}
-      >{`${event.owner.firstName} ${event.owner.lastName}`}</Text>
-      {event.description && isDefaultView && (
-        <Text style={styles.description}>{event.description}</Text>
-      )}
+    <View style={[styles.eventCard, !isDefaultView && styles.compactCard]}>
+      <View style={styles.cardContent}>
+        <Text style={styles.eventDate}>
+          {format(new Date(event.startsAt), 'MMMM d, yyyy – h:mm a')}
+        </Text>
+        <Text style={styles.eventTitle}>{event.title}</Text>
+        <Text
+          style={styles.ownerName}
+        >{`${event.owner.firstName} ${event.owner.lastName}`}</Text>
+        {event.description && isDefaultView && (
+          <Text style={styles.description}>{event.description}</Text>
+        )}
+      </View>
       <View style={styles.eventFooter}>
         {isDefaultView && (
           <View style={styles.attendeesContainer}>
@@ -166,12 +176,14 @@ const styles = StyleSheet.create({
   actionButton: {
     borderRadius: 6,
     paddingHorizontal: 16,
-    paddingVertical: 6,
+    paddingVertical: 10,
+    width: 96,
   },
   actionButtonText: {
     color: COLORS.WHITE,
     fontSize: 12,
     fontWeight: '500',
+    textAlign: 'center',
   },
   attendees: {
     color: COLORS.TEXT_SECONDARY,
@@ -180,6 +192,15 @@ const styles = StyleSheet.create({
   attendeesContainer: {
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  cardContent: {
+    flex: 1,
+    marginRight: 16,
+  },
+  compactCard: {
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   container: {
     backgroundColor: COLORS.PRIMARY_BACKGROUND,
