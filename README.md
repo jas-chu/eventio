@@ -43,6 +43,12 @@ To run just the iOS project in development mode:
 yarn ios
 ```
 
+To run Maestro tests:
+
+```bash
+yarn test:maestro
+```
+
 ## Usage of ESLint and Prettier
 
 ESLint is a static code analysis tool used to identify and fix problems in JavaScript and TypeScript code, ensuring consistent coding styles and catching potential errors.
